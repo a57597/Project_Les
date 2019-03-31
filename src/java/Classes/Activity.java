@@ -206,7 +206,7 @@ public class Activity implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Activity[ id=" + id + " ]";
+        return name + "";
     }
     
 }

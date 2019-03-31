@@ -100,7 +100,7 @@ public class Artefact implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Artefact[ id=" + id + " ]";
+        return name + "";
     }
     
 }

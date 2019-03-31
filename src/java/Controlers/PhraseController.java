@@ -91,6 +91,7 @@ public class PhraseController implements Serializable {
     }
 
     public String prepareEdit() {
+        
         current = (Phrase) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";

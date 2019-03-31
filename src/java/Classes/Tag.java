@@ -112,7 +112,7 @@ public class Tag implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Tag[ id=" + id + " ]";
+        return name + "";
     }
     
 }

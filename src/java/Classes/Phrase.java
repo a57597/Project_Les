@@ -173,7 +173,7 @@ public class Phrase implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Phrase[ id=" + id + " ]";
+        return id + "";
     }
     
 }

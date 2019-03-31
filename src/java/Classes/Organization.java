@@ -149,7 +149,7 @@ public class Organization implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Organization[ id=" + id + " ]";
+        return name + "";
     }
     
 }

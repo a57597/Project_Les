@@ -151,7 +151,7 @@ public class Process implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Process[ id=" + id + " ]";
+        return name + "";
     }
     
 }

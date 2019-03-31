@@ -140,7 +140,7 @@ public class Function1 implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Function1[ id=" + id + " ]";
+        return name + "";
     }
     
 }

@@ -100,7 +100,7 @@ public class Recurse implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Recurse[ id=" + id + " ]";
+        return id + "";
     }
     
 }

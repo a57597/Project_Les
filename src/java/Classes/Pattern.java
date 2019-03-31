@@ -163,7 +163,7 @@ public class Pattern implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Pattern[ id=" + id + " ]";
+        return name + "";
     }
     
 }

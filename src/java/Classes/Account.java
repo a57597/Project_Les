@@ -304,7 +304,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.Account[ id=" + id + " ]";
+        return userName + "";
     }
     
 }

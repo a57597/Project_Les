@@ -99,7 +99,7 @@ public class UserType implements Serializable {
 
     @Override
     public String toString() {
-        return "Classes.UserType[ id=" + id + " ]";
+        return role + "";
     }
     
 }
