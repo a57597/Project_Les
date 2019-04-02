@@ -19,7 +19,7 @@ table {
 
 form.jsfcrud_list_form th, td th {
     font-size: x-small;
-    color: #4e6a71;
+    color: white;
     border-top-style: solid;
     border-bottom-style: solid;
     border-left-style: solid;
@@ -38,7 +38,7 @@ form.jsfcrud_list_form th, td th {
     padding-bottom: 6px;
     padding-left: 6px;
     padding-right: 6px;
-    background-color: #b2d5d6;
+    background-color: black;
 }
 
 td {
@@ -80,3 +80,11 @@ tr.jsfcrud_even_row {
     left: 50%;
     top: 50%;
 }
+
+
+alignCenter {
+    text-align:center;
+}
+
+
+

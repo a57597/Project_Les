@@ -31,6 +31,10 @@ public class PhraseController implements Serializable {
 
     public PhraseController() {
     }
+    
+    public Phrase select(int index){
+        return null;
+    }
 
     public Phrase getSelected() {
         if (current == null) {

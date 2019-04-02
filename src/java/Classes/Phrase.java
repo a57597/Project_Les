@@ -173,7 +173,12 @@ public class Phrase implements Serializable {
 
     @Override
     public String toString() {
-        return id + "";
+        String result = userName + " " + actionID.getName();
+        if(accountReceiver != null)
+            result+= " " + accountReceiver;
+        if(artefactID != null)
+            result+= " " + artefactID.getName();
+        return result;
     }
     
 }
