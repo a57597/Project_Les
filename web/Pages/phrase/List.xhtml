@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    
+    <ui:composition template="/template.xhtml">
+        
+        <ui:define name="title">GPD</ui:define>
+        
+        <ui:define name="body">
+            <b:form styleClass="jsfcrud_list_form">
+
+                <b:column span="1"/>
+                <b:column span="7">
+                
+                <p class="small">
+                    <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/phrase/List" value="Phrase"/>
+                </p>
+                
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+             
+                
+                <span class="LeftMargin"/>
+                <b:commandButton class="btn btn-basic" action="#{phraseController.prepareCreate}">
+                    <span ><b:iconAwesome value="fa-plus-circle" /> </span>
+                    <span class="alignCenter"><b>Criar</b></span>
+                </b:commandButton>
+                <span class="RightMargin"/>
+                <b:commandButton class="btn btn-basic" action="#{phraseController.prepareEdit}">
+                    <span ><b:iconAwesome value="fa-edit" /> </span>
+                    <span class="alignCenter"><b>Editar</b></span>
+                </b:commandButton>
+                <span class="RightMargin"/>
+                <b:commandButton class="btn btn-basic" action="#{phraseController.destroy}">
+                    <span ><b:iconAwesome value="fa-trash" /> </span>
+                    <span class="alignCenter"><b>Eliminar</b></span>
+                </b:commandButton>
+
+                <br/>
+
+                
+                
+
+                    <h:outputText escape="false" value="#{bundle.ListPhraseEmpty}" rendered="#{phraseController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{phraseController.items.rowCount > 0}">
+                        <b:commandLink action="#{phraseController.previous}" value="#{bundle.Previous} #{phraseController.pagination.pageSize}" rendered="#{phraseController.pagination.hasPreviousPage}"/>&nbsp;
+                        <b:commandLink action="#{phraseController.next}" value="#{bundle.Next} #{phraseController.pagination.pageSize}" rendered="#{phraseController.pagination.hasNextPage}"/>&nbsp;
+
+                        <b:dataTable value="#{phraseController.items}" var="phrase" selectionMode="multiple" info="false" display="block" >
+
+                            <b:dataTableColumn value="#{phrase.userName}" />
+                            <b:dataTableColumn >
+                                <f:facet name="header">
+                                    Phrase
+                                </f:facet>
+                                #{phrase}
+                            </b:dataTableColumn>
+                            <b:dataTableColumn value="#{phrase.creationDate}" />
+
+                        </b:dataTable>
+                    </h:panelGroup>
+                </b:column>
+                <b:column span="1"/>
+   
+            </b:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
