@@ -26,23 +26,23 @@
                 
                 
                 <!-- BEGIN BOTOES -->
-                
-                <b:commandButton class="btn btn-basic" style="margin-right: 4px; margin-bottom: 8px;" action="#{accountController.prepareCreate}">
+                <h:panelGroup layout="block">
+                <b:commandButton class="btn btn-basic" style="margin-right: 4px; margin-bottom: 16px;" action="#{accountController.prepareCreate}">
                     <span ><b:iconAwesome value="fa-plus-circle" /> </span>
                     <span style="text-align:center;"><b>Create</b></span>
                 </b:commandButton>
                 
-                <b:commandButton class="btn btn-basic"  style="margin-right: 4px; margin-bottom: 8px;" action="#{accountController.prepareEdit}">
+                <b:commandButton class="btn btn-basic" style="margin-right: 4px; margin-bottom: 16px;" action="#{accountController.prepareEdit}">
                     <span ><b:iconAwesome value="fa-edit" /> </span>
                     <span style=" text-align:center;"><b>Edit</b></span>
                 </b:commandButton>
                 
-                <b:commandButton class="btn btn-basic" style="margin-right: 4px; margin-bottom: 8px;" action="#{accountController.destroy}">
+                <b:commandButton class="btn btn-basic" style="margin-right: 4px; margin-bottom: 16px;" action="#{accountController.destroy}">
                     <span ><b:iconAwesome value="fa-trash" /> </span>
                     <span style=" text-align:center;"><b>Delete</b></span>
                 </b:commandButton>
                 
-                
+                </h:panelGroup>
                 <!-- END BOTOES -->
                 
                 <h:outputText escape="false" value="#{bundle.ListAccountEmpty}" rendered="#{accountController.items.rowCount == 0}"/>
