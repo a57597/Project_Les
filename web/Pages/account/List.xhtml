@@ -15,56 +15,56 @@
             <!--  MINHA TABELA -->
             <h:form styleClass="jsfcrud_list_form">
                 
-               
+                
                 <b:column span="11">
-                 
-                 <!-- BEGIN PATH -->
-                <p class="small">
-                    <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/account/List" value="Account"/>
-                </p>
-                <!-- END PATH -->
-                
-                
-                <!-- BEGIN BOTOES -->
-                <h:panelGroup layout="block">
-                <b:commandButton class="btn btn-basic" style="margin-right: 4px; margin-bottom: 16px;" action="#{accountController.prepareCreate}">
-                    <span ><b:iconAwesome value="fa-plus-circle" /> </span>
-                    <span style="text-align:center;"><b>Create</b></span>
-                </b:commandButton>
-                
-                <b:commandButton class="btn btn-basic" style="margin-right: 4px; margin-bottom: 16px;" action="#{accountController.prepareEdit}">
-                    <span ><b:iconAwesome value="fa-edit" /> </span>
-                    <span style=" text-align:center;"><b>Edit</b></span>
-                </b:commandButton>
-                
-                <b:commandButton class="btn btn-basic" style="margin-right: 4px; margin-bottom: 16px;" action="#{accountController.destroy}">
-                    <span ><b:iconAwesome value="fa-trash" /> </span>
-                    <span style=" text-align:center;"><b>Delete</b></span>
-                </b:commandButton>
-                
-                </h:panelGroup>
-                <!-- END BOTOES -->
-                
-                <h:outputText escape="false" value="#{bundle.ListAccountEmpty}" rendered="#{accountController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{accountController.items.rowCount > 0}" >
-                    <b:dataTable value="#{accountController.items}" var="items" select="true">
-                        <b:dataTableColumn value="#{items.id}" label="ID"/>
-                        <b:dataTableColumn value="#{items.userName}" label="Username"/>
-                        <b:dataTableColumn value="#{items.cc}" label="CC"/>
-                        <b:dataTableColumn value="#{items.password}" />
-                        <b:dataTableColumn value="#{items.accountName}" label="Account Name"/>
-                        <b:dataTableColumn value="#{items.birthday}" label="Birthday"/>
-                        <b:dataTableColumn value="#{items.email}" />
-                        <b:dataTableColumn value="#{items.salary}" />
-                        <b:dataTableColumn value="#{items.address}" />
-                    </b:dataTable>
-                </h:panelGroup>
+                    
+                    <!-- BEGIN PATH -->
+                    <p class="small">
+                        <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/account/List" value="Account"/>
+                    </p>
+                    <!-- END PATH -->
+                    
+                    
+                    <!-- BEGIN BOTOES -->
+                    <h:panelGroup layout="block" styleClass="mainButton">
+                        <b:commandButton class="btn btn-basic" action="#{accountController.prepareCreate}">
+                            <span ><b:iconAwesome value="fa-plus-circle" /> </span>
+                            <span style="text-align:center;"><b>Create</b></span>
+                        </b:commandButton>
+                        
+                        <b:commandButton class="btn btn-basic" action="#{accountController.prepareEdit}">
+                            <span ><b:iconAwesome value="fa-edit" /> </span>
+                            <span style=" text-align:center;"><b>Edit</b></span>
+                        </b:commandButton>
+                        
+                        <b:commandButton class="btn btn-basic" action="#{accountController.destroy}">
+                            <span ><b:iconAwesome value="fa-trash" /> </span>
+                            <span style=" text-align:center;"><b>Delete</b></span>
+                        </b:commandButton>
+                        
+                    </h:panelGroup>
+                    <!-- END BOTOES -->
+                    
+                    <h:outputText escape="false" value="#{bundle.ListAccountEmpty}" rendered="#{accountController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{accountController.items.rowCount > 0}" >
+                        <b:dataTable value="#{accountController.items}" var="items" select="true">
+                            <b:dataTableColumn value="#{items.id}" label="ID"/>
+                            <b:dataTableColumn value="#{items.userName}" label="Username"/>
+                            <b:dataTableColumn value="#{items.cc}" label="CC"/>
+                            <b:dataTableColumn value="#{items.password}" />
+                            <b:dataTableColumn value="#{items.accountName}" label="Account Name"/>
+                            <b:dataTableColumn value="#{items.birthday}" label="Birthday"/>
+                            <b:dataTableColumn value="#{items.email}" />
+                            <b:dataTableColumn value="#{items.salary}" />
+                            <b:dataTableColumn value="#{items.address}" />
+                        </b:dataTable>
+                    </h:panelGroup>
                 </b:column>
                 
             </h:form>
             
             <!-- FIM DA MINHA TABELA --> 
-
+            
         </ui:define>
     </ui:composition>
     
