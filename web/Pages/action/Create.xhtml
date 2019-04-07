@@ -19,9 +19,14 @@
             </h:panelGroup>
             
             <b:form horizontal="true">
-                <b:inputText placeholder="Name" required="true" label="Username" colMd="10" labelColMd="2"></b:inputText>
+                <b:inputText type="hidden" id="id" value="0"/>
+                <b:inputText type="hidden" id="creationDate" value="#{currentDate}">
+                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
+                </b:inputText>
+                
+                <b:inputText id="name" required="true" label="Name" colMd="10" labelColMd="2" value="#{actionController.selected.name}"/>
             
-                <b:selectOneMenu value="#{actionController.selected.type}" colMd="2" required="true" label="Type:" labelColMd="2">
+                <b:selectOneMenu id="type" value="#{actionController.selected.type}" colMd="2" required="true" label="Type:" labelColMd="2">
                     <f:selectItem itemLabel="(Please select)" itemValue="" />
                     <f:selectItem itemLabel="Productive" itemValue="1" />
                     <f:selectItem itemLabel="Comunicative" itemValue="2" />
@@ -30,13 +35,15 @@
                 <b:selectOneMenu id="accountID" value="#{actionController.selected.accountID}" title="#{bundle.CreateActionTitle_accountID}" required="true" requiredMessage="#{bundle.CreateActionRequiredMessage_accountID}" colMd="2" label="Account:" labelColMd="2">
                     <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
                 </b:selectOneMenu>
-            <b:formGroup>
-                    <b:commandButton ajax="true" update="@none" style="width:80px" action="#{actionController.prepareList}" value="#{bundle.CreateActionShowAllLink}" immediate="true"/>
-                    <b:commandButton ajax="true" update="@none" look="info" style="width:80px" action="#{actionController.create}" value="#{bundle.CreateActionSaveLink}"/>
-            </b:formGroup>
-            
+                
+                
+                    <b:commandButton style="width:80px" action="#{actionController.prepareList}" value="#{bundle.Cancel}" immediate="true"/>
+                    <b:commandButton look="info" style="width:80px" action="#{actionController.create}" value="#{bundle.CreateActionSaveLink}"/>
+                
             </b:form>                
                      
+            
+            
             
             
             <h:form>
@@ -71,3 +78,7 @@
     </ui:composition>
     
 </html>
+
+
+
+
