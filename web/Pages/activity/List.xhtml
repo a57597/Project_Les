@@ -3,85 +3,64 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ListActivityTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+
+            <!--  MINHA TABELA -->
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListActivityEmpty}" rendered="#{activityController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{activityController.items.rowCount > 0}">
-                    <h:outputText value="#{activityController.pagination.pageFirstItem + 1}..#{activityController.pagination.pageLastItem + 1}/#{activityController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{activityController.previous}" value="#{bundle.Previous} #{activityController.pagination.pageSize}" rendered="#{activityController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{activityController.next}" value="#{bundle.Next} #{activityController.pagination.pageSize}" rendered="#{activityController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{activityController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivityTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivityTitle_name}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.name}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivityTitle_description}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.description}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivityTitle_creationDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.creationDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivityTitle_accountID}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.accountID}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivityTitle_activityID}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.activityID}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivityTitle_processID}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.processID}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{activityController.prepareView}" value="#{bundle.ListActivityViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{activityController.prepareEdit}" value="#{bundle.ListActivityEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{activityController.destroy}" value="#{bundle.ListActivityDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{activityController.prepareCreate}" value="#{bundle.ListActivityCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListActivityIndexLink}"/>
+
+                <b:column span="11">
+
+                    <!-- BEGIN PATH -->
+                    <p class="small">
+                        <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/activity/List" value="Account"/>
+                    </p>
+                    <!-- END PATH -->
+
+                    <!-- BEGIN BOTOES -->
+                    <h:panelGroup layout="block" styleClass="mb16 mt16">
+                        <b:button onclick="$('.formValidationModalClass').modal('show')" value="Create" iconAwesome="fa-plus-circle" class="btn btn-basic" styleClass="mr4"/>
+
+
+                        <b:commandButton class="btn btn-basic" styleClass="mr4" action="#{activityController.prepareCreate}">
+                            <span ><b:iconAwesome value="fa-edit" /> </span>
+                            <span style=" text-align:center;"><b>Edit</b></span>
+                        </b:commandButton>
+
+                        <b:commandButton class="btn btn-basic" styleClass="mr4"  action="#{activityController.destroy}">
+                            <span ><b:iconAwesome value="fa-trash" /> </span>
+                            <span style=" text-align:center;"><b>Delete</b></span>
+                        </b:commandButton>
+
+                    </h:panelGroup>
+                    <!-- END BOTOES -->
+
+                    <h:outputText escape="false" value="#{bundle.ListAccountEmpty}" rendered="#{activityController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{activityController.items.rowCount > 0}" >
+                        <b:dataTable value="#{activityController.items}" var="items" select="true">
+                            <b:dataTableColumn value="#{items.id}" label="ID"/>
+                            <b:dataTableColumn value="#{items.name}" label="Name"/>
+                            <b:dataTableColumn value="#{items.description}" label="Description"/>
+                            <b:dataTableColumn value="#{items.creationDate}" label="Creation Date"/>
+                            <b:dataTableColumn value="#{items.accountID}" label="Account ID"/>
+                            <b:dataTableColumn value="#{items.activityID}" label="Activity ID"/>
+                            <b:dataTableColumn value="#{items.processID}" label="Process ID"/>
+                        </b:dataTable>
+                    </h:panelGroup>
+
+                </b:column>
+
             </h:form>
+
+            <!-- FIM DA MINHA TABELA --> 
+
+
         </ui:define>
     </ui:composition>
 
