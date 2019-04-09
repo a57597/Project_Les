@@ -27,7 +27,7 @@
                     
                     <!-- BEGIN BOTOES -->
                     <h:panelGroup layout="block" styleClass="mb16 mt16">
-                        <b:button onclick="$('.formValidationModalClass').modal('show')" value="Create" iconAwesome="fa-plus-circle" class="btn btn-basic" styleClass="mr4"/>
+                        <b:button onclick="$('.formCreatedModalClass').modal('show')" value="Create" iconAwesome="fa-plus-circle" class="btn btn-basic" styleClass="mr4"/>
                         
                         
                         <b:commandButton class="btn btn-basic" styleClass="mr4" action="#{accountController.prepareCreate}">
@@ -94,31 +94,97 @@
             
             
             
-            <b:modal title="Create Account" styleClass="formValidationModalClass"
-                     closable="false"
-                     closeOnEscape="true">
-                <b:form>
-                    <p>Please enter a number between 1 and 99.</p>
-                    <b:inputText value="42"
-                                 label="Tage"
-                                 required="true"
-                                 requiredMessage="Please enter a number"
-                                 large-screen="two-thirds">
-                        <f:convertNumber integerOnly="true"/>
-                        <f:validateLongRange minimum="1" maximum="99"/>
-                    </b:inputText>
-                    <b:row>
-                        <b:column>
-                            <b:button largeScreen="half"  value="Cancel"
-                                      dismiss="modal" onclick="return false;"/>
-                            <b:commandButton largeScreen="half" update="@form"
-                                             value="Save" look="success"
-                                             oncomplete="if(!validationFailed) { $('.formValidationModalClass').modal('hide') } "/>
-                        </b:column>
-                    </b:row>
-                    <b:fetchBeanInfos />
-                    <b:messages />
-                </b:form>
+            <b:modal title="Create Account" styleClass="formCreatedModalClass"
+                     closable="true"
+                     closeOnEscape="false">
+                <h:form>
+                    <b:container fluid="true">
+                        <b:row>
+                            <b:column span="12" >
+                                <h:inputHidden id="id" value="1" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_id}"/>
+                            </b:column>
+                        </b:row>
+                        <!-- Account data -->
+                        <b:row>
+                            <b:column span="2">
+                                <h:outputLabel value="#{bundle.CreateAccountLabel_userName}*" for="userName" />
+                            </b:column>
+                            <b:column span="2">
+                                <h:inputText id="userName" value="#{accountController.selected.userName}" title="#{bundle.CreateAccountTitle_userName}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_userName}" />
+                            </b:column>
+                            <b:column span="3">
+                                
+                            </b:column>
+                            <b:column span="5">
+                                <h:message for="userName" errorStyle="color: red" infoStyle="color: green" />
+                            </b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="2">
+                                <h:outputLabel value="#{bundle.CreateAccountLabel_password}*" for="password" />
+                            </b:column>
+                            <b:column span="2">
+                                <h:inputText id="password" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_password}" />
+                            </b:column>
+                            <b:column span="3">
+                                
+                            </b:column>                            
+                            <b:column span="5">
+                                <h:message for="password" errorStyle="color: red" infoStyle="color: green" />
+                            </b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="2">
+                                <h:outputLabel value="#{bundle.CreateAccountLabel_email}*" for="email" />
+                            </b:column>
+                            <b:column span="2">
+                                <h:inputText id="email" value="#{accountController.selected.email}" title="#{bundle.CreateAccountTitle_email}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_email}"/>
+                            </b:column>
+                            <b:column span="3">
+                                
+                            </b:column>
+                            <b:column span="3">
+                                <h:message for="email" errorStyle="color: red" infoStyle="color: green" />
+                            </b:column>
+                        </b:row>
+                        
+                        <!--END OF ACCOUNT DATA-->
+                        
+                        <!-- BEGIN OF PERSONAL DATA -->
+                        
+                        <!--END OF PERSONAL DATA -->
+                        <h:panelGrid columns="1">
+                            
+                            <h:panelGrid columns="2">
+                                
+                                <h:outputLabel value="#{bundle.CreateAccountLabel_cc}" for="cc" />
+                                <h:inputText id="cc" value="#{accountController.selected.cc}" title="#{bundle.CreateAccountTitle_cc}" />
+                                
+                                
+                                <h:outputLabel value="#{bundle.CreateAccountLabel_accountName}" for="accountName" />
+                                <h:inputText id="accountName" value="#{accountController.selected.accountName}" title="#{bundle.CreateAccountTitle_accountName}" />
+                                <h:outputLabel value="#{bundle.CreateAccountLabel_birthday}" for="birthday" />
+                                <h:inputText id="birthday" value="#{accountController.selected.birthday}" title="#{bundle.CreateAccountTitle_birthday}" >
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                
+                                
+                                <h:outputLabel value="#{bundle.CreateAccountLabel_address}" for="address" />
+                                <h:inputText id="address" value="#{accountController.selected.address}" title="#{bundle.CreateAccountTitle_address}" />
+                                <h:outputLabel value="#{bundle.CreateAccountLabel_salary}" for="salary" />
+                                <h:inputText id="salary" value="#{accountController.selected.salary}" title="#{bundle.CreateAccountTitle_salary}" />
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <br />
+                        <h:commandLink action="#{accountController.create}" value="#{bundle.CreateAccountSaveLink}" />
+                        <br />
+                        <br />
+                        <h:commandLink action="#{accountController.prepareList}" value="#{bundle.CreateAccountShowAllLink}" immediate="true"/>
+                        <br />
+                        <br />
+                        <h:link outcome="/index" value="#{bundle.CreateAccountIndexLink}"/>
+                    </b:container>
+                </h:form>
             </b:modal>
             
             <!-- FIM DO MODAL CRIAR -->
