@@ -55,8 +55,7 @@ public class Action implements Serializable {
     @Column(name = "Type")
     private String type;
     @Column(name = "CreationDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    private String creationDate;
     @JoinColumn(name = "Account_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Account accountID;
@@ -94,11 +93,11 @@ public class Action implements Serializable {
         this.type = type;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 

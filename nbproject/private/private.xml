@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/diogo/Documents/NETBEANS/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/home/diogo/Documents/NETBEANS/web/Pages/phrase/List.xhtml</file>
-            <file>file:/home/diogo/Documents/NETBEANS/web/Pages/account/List.xhtml</file>
-            <file>file:/home/diogo/Documents/NETBEANS/web/template.xhtml</file>
-            <file>file:/home/diogo/Documents/NETBEANS/web/resources/css/jsfcrud.css</file>
+            <file>file:/C:/Users/susan/Documents/GitHub/Project_Les/web/Pages/action/List.xhtml</file>
+            <file>file:/C:/Users/susan/Documents/GitHub/Project_Les/src/java/Controlers/ActionController.java</file>
+            <file>file:/C:/Users/susan/Documents/GitHub/Project_Les/web/Pages/action/Create.xhtml</file>
+            <file>file:/C:/Users/susan/Documents/GitHub/Project_Les/web/Pages/phrase/List.xhtml</file>
         </group>
     </open-files>
 </project-private>
