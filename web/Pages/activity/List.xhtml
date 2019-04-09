@@ -19,13 +19,13 @@
 
                     <!-- BEGIN PATH -->
                     <p class="small">
-                        <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/activity/List" value="Account"/>
+                        <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/activity/List" value="Activity"/>
                     </p>
                     <!-- END PATH -->
 
                     <!-- BEGIN BOTOES -->
                     <h:panelGroup layout="block" styleClass="mb16 mt16">
-                        <b:button onclick="$('.formValidationModalClass').modal('show')" value="Create" iconAwesome="fa-plus-circle" class="btn btn-basic" styleClass="mr4"/>
+                        <b:button onclick="$('.formCreatedModalClass').modal('show')" value="Create" iconAwesome="fa-plus-circle" class="btn btn-basic" styleClass="mr4"/>
 
 
                         <b:commandButton class="btn btn-basic" styleClass="mr4" action="#{activityController.prepareCreate}">
@@ -41,7 +41,7 @@
                     </h:panelGroup>
                     <!-- END BOTOES -->
 
-                    <h:outputText escape="false" value="#{bundle.ListAccountEmpty}" rendered="#{activityController.items.rowCount == 0}"/>
+                    <h:outputText escape="false" value="#{bundle.ListActivityEmpty}" rendered="#{activityController.items.rowCount == 0}"/>
                     <h:panelGroup rendered="#{activityController.items.rowCount > 0}" >
                         <b:dataTable value="#{activityController.items}" var="items" select="true">
                             <b:dataTableColumn value="#{items.id}" label="ID"/>
@@ -59,6 +59,66 @@
             </h:form>
 
             <!-- FIM DA MINHA TABELA --> 
+
+            <!-- INICIO DO MODAL CRIAR -->           
+            <b:modal title="Create Activity" styleClass="formCreatedModalClass" headerClass="headerModal"
+                     closable="true"
+                     closeOnEscape="false"
+                     backdrop="false">
+                <b:form horizontal="true">
+                    <!-- ID -->
+                    <b:row>
+
+                        <h:inputHidden id="id" value="1" required="true" requiredMessage="#{bundle.CreateActivityRequiredMessage_id}"/>
+
+                    </b:row>
+                    <!-- NAME -->        
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:inputText labelStyle="text-align:left;" colMd="8" labelColMd="4" id="name" label="#{bundle.CreateActivityLabel_name}" value="#{activityController.selected.name}" title="#{bundle.CreateActivityTitle_name}" required="true" requiredMessage="#{bundle.CreateActivityRequiredMessage_name}" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    <!-- DESCRIPTION --> 
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:inputTextarea label="#{bundle.CreateActivityLabel_description}" id="description" labelStyle="text-align:left;" colMd="8" labelColMd="4" value="#{activityController.selected.description}" title="#{bundle.CreateActivityTitle_description}" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    <!-- CREATION DATE -->  
+                                    <b:inputText type="hidden" id="creationDate" value="#{currentDate}">
+                                        <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" type="date"/>
+                </b:inputText>
+                    <!-- ACCOUNT ID -->
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:selectOneMenu id="accountID" value="#{activityController.selected.accountID}" colMd="8" labelStyle="text-align:left;" labelColMd="4" required="true" requiredMessage="#{bundle.CreateActivityRequiredMessage_accountID}" label="Account:" title="#{bundle.CreateActivityTitle_accountID}">                     
+                                <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+
+                    <br />
+                    <h:commandLink action="#{activityController.create}" value="#{bundle.CreateActivitySaveLink}" />
+                    <br />
+                    <br />
+                    <h:commandLink action="#{activityController.prepareList}" value="#{bundle.CreateActivityShowAllLink}" immediate="true"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="#{bundle.CreateActivityIndexLink}"/>
+
+                </b:form>
+            </b:modal>
+
+            <!-- FIM DO MODAL CRIAR -->
 
 
         </ui:define>
