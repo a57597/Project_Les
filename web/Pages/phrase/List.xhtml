@@ -97,7 +97,9 @@
 
                     <h:outputText escape="false" value="#{bundle.ListPhraseEmpty}" rendered="#{phraseController.items.rowCount == 0}"/>
                     <h:panelGroup rendered="#{phraseController.items.rowCount > 0}">
-                        
+                        <b:commandLink action="#{phraseController.previous}" value="#{bundle.Previous} #{phraseController.pagination.pageSize}" rendered="#{phraseController.pagination.hasPreviousPage}"/>&nbsp;
+                        <b:commandLink action="#{phraseController.next}" value="#{bundle.Next} #{phraseController.pagination.pageSize}" rendered="#{phraseController.pagination.hasNextPage}"/>&nbsp;
+
                         <b:dataTable value="#{phraseController.items}" var="phrase" selectionMode="multiple" info="false" display="block" >
 
                             <b:dataTableColumn value="#{phrase.userName}" />

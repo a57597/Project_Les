@@ -5,8 +5,8 @@
         <property name="serverName" value="188.37.173.240"/>
         <property name="portNumber" value="3306"/>
         <property name="databaseName" value="GPD"/>
-        <property name="User" value="57621"/>
-        <property name="Password" value="susana"/>
+        <property name="User" value="pila"/>
+        <property name="Password" value="pila"/>
         <property name="URL" value="jdbc:mysql://188.37.173.240:3306/GPD?zeroDateTimeBehavior=convertToNull"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
