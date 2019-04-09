@@ -94,97 +94,108 @@
             
             
             
-            <b:modal title="Create Account" styleClass="formCreatedModalClass"
+            <b:modal title="Create Account" styleClass="formCreatedModalClass" headerClass="headerModal"
                      closable="true"
-                     closeOnEscape="false">
-                <h:form>
-                    <b:container fluid="true">
-                        <b:row>
-                            <b:column span="12" >
-                                <h:inputHidden id="id" value="1" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_id}"/>
-                            </b:column>
-                        </b:row>
-                        <!-- Account data -->
-                        <b:row>
-                            <b:column span="2">
-                                <h:outputLabel value="#{bundle.CreateAccountLabel_userName}*" for="userName" />
-                            </b:column>
-                            <b:column span="2">
-                                <h:inputText id="userName" value="#{accountController.selected.userName}" title="#{bundle.CreateAccountTitle_userName}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_userName}" />
-                            </b:column>
-                            <b:column span="3">
-                                
-                            </b:column>
-                            <b:column span="5">
-                                <h:message for="userName" errorStyle="color: red" infoStyle="color: green" />
-                            </b:column>
-                        </b:row>
-                        <b:row>
-                            <b:column span="2">
-                                <h:outputLabel value="#{bundle.CreateAccountLabel_password}*" for="password" />
-                            </b:column>
-                            <b:column span="2">
-                                <h:inputText id="password" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_password}" />
-                            </b:column>
-                            <b:column span="3">
-                                
-                            </b:column>                            
-                            <b:column span="5">
-                                <h:message for="password" errorStyle="color: red" infoStyle="color: green" />
-                            </b:column>
-                        </b:row>
-                        <b:row>
-                            <b:column span="2">
-                                <h:outputLabel value="#{bundle.CreateAccountLabel_email}*" for="email" />
-                            </b:column>
-                            <b:column span="2">
-                                <h:inputText id="email" value="#{accountController.selected.email}" title="#{bundle.CreateAccountTitle_email}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_email}"/>
-                            </b:column>
-                            <b:column span="3">
-                                
-                            </b:column>
-                            <b:column span="3">
-                                <h:message for="email" errorStyle="color: red" infoStyle="color: green" />
-                            </b:column>
-                        </b:row>
+                     closeOnEscape="false"
+                     backdrop="false">
+                <b:form horizontal="true">
+                    <b:row styleClass="mb8">
+                        <b:label text="Account Information" large-screen="full-width" style-class="labelmodal" style="font-size: large;"  />
+                    </b:row>
+                    <b:row>
                         
-                        <!--END OF ACCOUNT DATA-->
+                        <h:inputHidden id="id" value="1" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_id}"/>
                         
-                        <!-- BEGIN OF PERSONAL DATA -->
-                        
-                        <!--END OF PERSONAL DATA -->
-                        <h:panelGrid columns="1">
-                            
-                            <h:panelGrid columns="2">
-                                
-                                <h:outputLabel value="#{bundle.CreateAccountLabel_cc}" for="cc" />
-                                <h:inputText id="cc" value="#{accountController.selected.cc}" title="#{bundle.CreateAccountTitle_cc}" />
-                                
-                                
-                                <h:outputLabel value="#{bundle.CreateAccountLabel_accountName}" for="accountName" />
-                                <h:inputText id="accountName" value="#{accountController.selected.accountName}" title="#{bundle.CreateAccountTitle_accountName}" />
-                                <h:outputLabel value="#{bundle.CreateAccountLabel_birthday}" for="birthday" />
-                                <h:inputText id="birthday" value="#{accountController.selected.birthday}" title="#{bundle.CreateAccountTitle_birthday}" >
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:inputText>
-                                
-                                
-                                <h:outputLabel value="#{bundle.CreateAccountLabel_address}" for="address" />
-                                <h:inputText id="address" value="#{accountController.selected.address}" title="#{bundle.CreateAccountTitle_address}" />
-                                <h:outputLabel value="#{bundle.CreateAccountLabel_salary}" for="salary" />
-                                <h:inputText id="salary" value="#{accountController.selected.salary}" title="#{bundle.CreateAccountTitle_salary}" />
-                            </h:panelGrid>
-                        </h:panelGrid>
-                        <br />
-                        <h:commandLink action="#{accountController.create}" value="#{bundle.CreateAccountSaveLink}" />
-                        <br />
-                        <br />
-                        <h:commandLink action="#{accountController.prepareList}" value="#{bundle.CreateAccountShowAllLink}" immediate="true"/>
-                        <br />
-                        <br />
-                        <h:link outcome="/index" value="#{bundle.CreateAccountIndexLink}"/>
-                    </b:container>
-                </h:form>
+                    </b:row>
+                    <!-- Account data -->
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:inputText labelStyle="text-align:left;" colMd="8" labelColMd="4" id="userName" label="#{bundle.CreateAccountLabel_userName}" value="#{accountController.selected.userName}" title="#{bundle.CreateAccountTitle_userName}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_userName}" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    
+                    <b:row> 
+                        <b:column medium-screen="7">
+                            <b:inputSecret label="#{bundle.CreateAccountLabel_password}" labelStyle="text-align:left;" colMd="8" labelColMd="4" id="password" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_password}" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:inputText label="#{bundle.CreateAccountLabel_email}" labelStyle="text-align:left;" colMd="8" labelColMd="4" id="email" value="#{accountController.selected.email}" title="#{bundle.CreateAccountTitle_email}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_email}" mask="email" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    <!--END OF ACCOUNT DATA-->
+                    
+                    <!-- BEGIN OF PERSONAL DATA -->
+                    <b:row styleClass="mb8 mt8">
+                        <b:label text="Personal Information" large-screen="full-width" style="font-size: large;"/>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:inputText labelStyle="text-align:left;" colMd="8" labelColMd="4" label="#{bundle.CreateAccountLabel_accountName}" id="accountName" value="#{accountController.selected.accountName}" title="#{bundle.CreateAccountTitle_accountName}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_accountName}"/>
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:inputText label="#{bundle.CreateAccountLabel_cc}" labelStyle="text-align:left;" colMd="8" labelColMd="4" id="cc" value="#{accountController.selected.cc}" title="#{bundle.CreateAccountTitle_cc}" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:datepicker label="#{bundle.CreateAccountLabel_birthday}" labelStyle="text-align:left;" colMd="8" labelColMd="4" id="birthday"  mode="popup-icon" value="#{accountController.selected.birthday}"/>
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:inputText label="#{bundle.CreateAccountLabel_address}" id="address" labelStyle="text-align:left;" colMd="8" labelColMd="4" value="#{accountController.selected.address}" title="#{bundle.CreateAccountTitle_address}" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    
+                    <b:row>
+                        <b:column medium-screen="7">
+                            <b:inputText label="#{bundle.CreateAccountLabel_salary}" id="salary" labelStyle="text-align:left;" colMd="8" labelColMd="4" value="#{accountController.selected.salary}" title="#{bundle.CreateAccountTitle_salary}" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <b:message for="@previous" auto-update="true" />
+                        </b:column>
+                    </b:row>
+                    <!--END OF PERSONAL DATA -->
+                    
+                    <br />
+                    <h:commandLink action="#{accountController.create}" value="#{bundle.CreateAccountSaveLink}" />
+                    <br />
+                    <br />
+                    <h:commandLink action="#{accountController.prepareList}" value="#{bundle.CreateAccountShowAllLink}" immediate="true"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="#{bundle.CreateAccountIndexLink}"/>
+                    
+                </b:form>
             </b:modal>
             
             <!-- FIM DO MODAL CRIAR -->
