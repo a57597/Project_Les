@@ -46,24 +46,28 @@
                               </button>
                             </div>
                             <!-- PRODUCT CREATION FORM -->
+                            
                             <h:form>
                                 <div class="modal-body">
                                     <b:inputText p:type="hidden" id="id" value="0" title="#{bundle.CreateProductTitle_id}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_id}"/>
                                     
                                     <h:outputLabel value="#{bundle.CreateProductLabel_name}" for="name" />
                                     <b:inputText id="name" value="#{productController.selected.name}" title="#{bundle.CreateProductTitle_name}" />
+                                    
                                     <h:outputLabel value="#{bundle.CreateProductLabel_description}" for="description" />
                                     <b:inputTextarea id="description" value="#{productController.selected.description}" title="#{bundle.CreateProductTitle_description}" rows="4" />
+                                    
                                     <h:outputLabel value="#{bundle.CreateProductLabel_creationDate}" for="creationDate" />
-                                    <b:inputText id="creationDate" value="#{productController.selected.creationDate}" title="#{bundle.CreateProductTitle_creationDate}" >
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </b:inputText>
+                                    <b:dateTimePicker id="creationDate" value="#{productController.selected.creationDate}"  disabled="false"/>
+                                    
                                     <h:outputLabel value="#{bundle.CreateProductLabel_type}" for="type" />
                                     <b:inputText id="type" value="#{productController.selected.type}" title="#{bundle.CreateProductTitle_type}" />
+                                    
                                     <h:outputLabel value="#{bundle.CreateProductLabel_accountID}" for="accountID" />
                                     <b:selectOneMenu id="accountID" value="#{productController.selected.accountID}" title="#{bundle.CreateProductTitle_accountID}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_accountID}">
                                         <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
                                     </b:selectOneMenu>
+                                    
                                     <!-- BEGINNING BOTTOM BUTTONS -->
                                     <div class="modal-footer">
                                         <span style="float: left">
@@ -109,8 +113,10 @@
                                     <b:inputText id="creationDate" value="#{productController.selected.creationDate}" title="#{bundle.CreateProductTitle_creationDate}" >
                                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                     </b:inputText>
+                                    
                                     <h:outputLabel value="#{bundle.CreateProductLabel_type}" for="type" />
                                     <b:inputText id="type" value="#{productController.selected.type}" title="#{bundle.CreateProductTitle_type}" />
+                                    
                                     <h:outputLabel value="#{bundle.CreateProductLabel_accountID}" for="accountID" />
                                     <b:selectOneMenu id="accountID" value="#{productController.selected.accountID}" title="#{bundle.CreateProductTitle_accountID}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_accountID}">
                                         <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
@@ -143,50 +149,16 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListProductEmpty}" rendered="#{productController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{productController.items.rowCount > 0}">
-                    <h:outputText value="#{productController.pagination.pageFirstItem + 1}..#{productController.pagination.pageLastItem + 1}/#{productController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{productController.previous}" value="#{bundle.Previous} #{productController.pagination.pageSize}" rendered="#{productController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{productController.next}" value="#{bundle.Next} #{productController.pagination.pageSize}" rendered="#{productController.pagination.hasNextPage}"/>&nbsp;
-                    <!-- BEGGINING OF PRODUCT TABLE -->
-                    <h:dataTable value="#{productController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductTitle_id}"/>
-                            </f:facet>
-                            <b:radiobutton value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductTitle_name}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.name}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductTitle_description}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.description}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductTitle_creationDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.creationDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductTitle_type}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.type}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
+                    <h:panelGroup rendered="#{productController.items.rowCount > 0}" >
+                        <b:dataTable value="#{productController.items}" var="items" select="true">
+                            <b:dataTableColumn value="#{items.name}" label="Name"/>
+                            <b:dataTableColumn value="#{items.description}" label="Description"/>
+                            <b:dataTableColumn value="#{items.creationDate}" />
+                            <b:dataTableColumn value="#{items.type}" label="Type"/>
+                        </b:dataTable>
+                    </h:panelGroup>
                 <!-- END OF PRODUCT TABLE -->
-                <br/><br/><br/><br/><br/><br/><br/>
                 <!-- BEGGINING OF BOTTOM BUTTONS -->
-                <h:link outcome="/index" value="#{bundle.ListProductIndexLink}"/>
                 <!-- END OF BOTTOM BUTTONS -->
             </h:form>
             <!-- END OF PRODUCT LIST -->
