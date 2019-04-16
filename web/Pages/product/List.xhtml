@@ -12,6 +12,14 @@
             <h:outputText value="#{bundle.ListProductTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <!-- EXAMPLAR MODAL -->
+                <b:modal id="exampleModal" title="Modal Example" styleClass="modalPseudoClass">
+                        <f:facet name="footer">
+                          <b:button value="Close" dismiss="modal" />
+                          <b:button value="Ok" look="primary" dismiss="modal" />
+                        </f:facet>
+                      </b:modal>
+            
             <!-- BEGINNING OF PATH -->
             <p class="small">
                 <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/product/List" value="Product" />
@@ -45,7 +53,7 @@
                                     <h:outputLabel value="#{bundle.CreateProductLabel_name}" for="name" />
                                     <b:inputText id="name" value="#{productController.selected.name}" title="#{bundle.CreateProductTitle_name}" />
                                     <h:outputLabel value="#{bundle.CreateProductLabel_description}" for="description" />
-                                    <b:inputTextarea id="description" value="#{productController.selected.description}" title="#{bundle.CreateProductTitle_description}" rows="4" cols="40" />
+                                    <b:inputTextarea id="description" value="#{productController.selected.description}" title="#{bundle.CreateProductTitle_description}" rows="4" />
                                     <h:outputLabel value="#{bundle.CreateProductLabel_creationDate}" for="creationDate" />
                                     <b:inputText id="creationDate" value="#{productController.selected.creationDate}" title="#{bundle.CreateProductTitle_creationDate}" >
                                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -71,21 +79,59 @@
                         </div>
                       </div>
                 <!-- END OF THE PRODUCT CREATION MODAL -->
-                <!-- EXAMPLAR MODAL -->
-                <b:modal id="exampleModal" title="Modal Example" styleClass="modalPseudoClass">
-                        <f:facet name="footer">
-                          <b:button value="Close" dismiss="modal" />
-                          <b:button value="Ok" look="primary" dismiss="modal" />
-                        </f:facet>
-                      </b:modal>
+                
                 <!-- END OF EXEMPLAR MODAL -->
                 <!-- edit button -->
-                <b:commandButton class="btn btn-basic" styleClass="mr4" action="#{productController.prepareEdit}">
+                <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#editModal" action-listener="">
                     <span ><b:iconAwesome value="fa-edit" /> </span>
                     <span style=" text-align:center;"><b>Edit</b></span>
                 </b:commandButton>
+                <!-- BEGINNING OF THE PRODUCT EDITATION MODAL -->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <!-- PRODUCT EDITATION FORM -->
+                            <h:form>
+                                <div class="modal-body">
+                                    <b:inputText p:type="hidden" id="id" value="0" title="#{bundle.EditProductTitle_id}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_id}"/>
+                                    
+                                    <h:outputLabel value="#{bundle.CreateProductLabel_name}" for="name" />
+                                    <b:inputText id="name" value="#{productController.selected.name}" title="#{bundle.CreateProductTitle_name}" />
+                                    <h:outputLabel value="#{bundle.CreateProductLabel_description}" for="description" />
+                                    <b:inputTextarea id="description" value="#{productController.selected.description}" title="#{bundle.CreateProductTitle_description}" rows="4" />
+                                    <h:outputLabel value="#{bundle.CreateProductLabel_creationDate}" for="creationDate" />
+                                    <b:inputText id="creationDate" value="#{productController.selected.creationDate}" title="#{bundle.CreateProductTitle_creationDate}" >
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </b:inputText>
+                                    <h:outputLabel value="#{bundle.CreateProductLabel_type}" for="type" />
+                                    <b:inputText id="type" value="#{productController.selected.type}" title="#{bundle.CreateProductTitle_type}" />
+                                    <h:outputLabel value="#{bundle.CreateProductLabel_accountID}" for="accountID" />
+                                    <b:selectOneMenu id="accountID" value="#{productController.selected.accountID}" title="#{bundle.CreateProductTitle_accountID}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_accountID}">
+                                        <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
+                                    </b:selectOneMenu>
+                                    <!-- BEGINNING BOTTOM BUTTONS -->
+                                    <div class="modal-footer">
+                                        <span style="float: left">
+                                            <h:commandButton class="btn btn-basic" action="#{productController.prepareList}" value="Close" immediate="true"/>
+                                        </span>
+                                        <h:commandButton class="btn btn-primary" action="#{productController.update}" value="#{bundle.CreateProductSaveLink}" />
+                                    </div>
+                                    <!-- END OF BOTTOM BUTTONS -->
+                                </div>
+                            </h:form>
+                            <!-- END OF PRODUCT EDITATION FORM -->
+                          </div>
+                        </div>
+                      </div>
+                <!-- END OF PRODUCT EDIT -->
                 <!-- delete button -->
-                <b:commandButton class="btn btn-basic" styleClass="mr4"  action="#{productController.destroy}">
+                <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#deleteModal" action-listener="#{productController.destroy}">
                     <span ><b:iconAwesome value="fa-trash" /> </span>
                     <span style=" text-align:center;"><b>Delete</b></span>
                 </b:commandButton>
@@ -104,7 +150,10 @@
                     <!-- BEGGINING OF PRODUCT TABLE -->
                     <h:dataTable value="#{productController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
-                            <input type="radio" name="selected" value="Selected" />
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_id}"/>
+                            </f:facet>
+                            <b:radiobutton value="#{item.id}" onclick="#{}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
