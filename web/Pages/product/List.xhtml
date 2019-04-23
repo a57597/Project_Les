@@ -33,7 +33,7 @@
                 <!-- create button -->
                 <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#createModal" action-listener="#{productController.prepareCreate}">
                         <b:iconAwesome value="fa-plus-circle" />
-                        <b>Criar</b>
+                        <b>Create</b>
                 </b:commandButton>
                 <!-- BEGGINING OF THE PRODUCT CREATION MODAL -->
                 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -153,7 +153,7 @@
                         <b:dataTable value="#{productController.items}" var="items" select="true">
                             <b:dataTableColumn value="#{items.name}" label="Name"/>
                             <b:dataTableColumn value="#{items.description}" label="Description"/>
-                            <b:dataTableColumn value="#{items.creationDate}" />
+                            <b:dataTableColumn value="#{items.creationDate}" label="Creation Date"/>
                             <b:dataTableColumn value="#{items.type}" label="Type"/>
                         </b:dataTable>
                     </h:panelGroup>
