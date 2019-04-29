@@ -29,6 +29,12 @@ public class AccountController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    // CODIGO ADICIONADO
+    private Account currentAccount;     // Conta que associas assim que fazer login
+    public void setCurrentAccount(Account currentAccount) {this.currentAccount = currentAccount;}
+    public Account getCurrentAccount() {return this.currentAccount;}
+    // FIM DO CODIGO ADICIONADO
+    
     public AccountController() {
     }
 

@@ -76,14 +76,14 @@ public class Function1Controller implements Serializable {
     public String prepareCreate() {
         current = new Function1();
         selectedItemIndex = -1;
-        return "List";
+        return "Create";
     }
 
     public String create() {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Function1Created"));
-            return prepareCreate();
+            return prepareList();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;

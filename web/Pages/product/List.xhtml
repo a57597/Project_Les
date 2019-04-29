@@ -63,11 +63,13 @@
                                     <h:outputLabel value="#{bundle.CreateProductLabel_type}" for="type" />
                                     <b:inputText id="type" value="#{productController.selected.type}" title="#{bundle.CreateProductTitle_type}" />
                                     
+                                    <b:inputSecret id="accountID" value="#{accountController.currentAccount}" />
+                                    <!--
                                     <h:outputLabel value="#{bundle.CreateProductLabel_accountID}" for="accountID" />
                                     <b:selectOneMenu id="accountID" value="#{productController.selected.accountID}" title="#{bundle.CreateProductTitle_accountID}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_accountID}">
                                         <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
                                     </b:selectOneMenu>
-                                    
+                                    -->
                                     <!-- BEGINNING BOTTOM BUTTONS -->
                                     <div class="modal-footer">
                                         <span style="float: left">

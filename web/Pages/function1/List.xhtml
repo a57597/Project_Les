@@ -23,13 +23,13 @@
             
             <!-- BEGINNING OF PATH -->
             <p class="small">
-                <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/function1/List" value="Role" />
+                <b:link outcome="/index" value="GPD"/>/<b:link outcome="" value="tmp"/>/<b:link outcome="/Pages/function1/List" value="Function" />
             </p>
             <!-- END OF PATH -->
             
             <!-- BEGINNING OF FUNCTION NAVIGATION -->
             <!-- Create button -->
-            <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#createModal" action-listener="#{function1Controller.prepareCreate}">
+            <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#createModal" action="#{function1Controller.prepareCreate}">
                     <b:iconAwesome value="fa-plus-circle" />
                     <b>Create</b>
             </b:commandButton>
@@ -41,7 +41,7 @@
             </b:commandButton>
             
             <!-- Delete button -->
-            <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#deleteModal" action-listener="#{function1Controller.destroy}">
+            <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#deleteModal" action="#{function1Controller.destroy}">
                 <span ><b:iconAwesome value="fa-trash" /> </span>
                 <span style=" text-align:center;"><b>Delete</b></span>
             </b:commandButton>
@@ -61,7 +61,6 @@
                         <b:dataTableColumn value="#{items.name}" label="Name"/>
                         <b:dataTableColumn value="#{items.description}" label="Description"/>
                         <b:dataTableColumn value="#{items.creationDate}" label="Creation Date"/>
-                        <b:dataTableColumn value="#{items.accountID}" label="Account"/>
                     </b:dataTable>
                 </h:panelGroup>
                 <!-- END OF TABLE -->
@@ -91,11 +90,15 @@
                                     <h:outputLabel value="#{bundle.CreateFunction1Label_creationDate}" for="creationDate" />
                                     <b:dateTimePicker id="creationDate" value="#{function1Controller.selected.creationDate}"  disabled="false"/>
                                     
+                                    <!--
+                                    <input id="accountID" type="hidden" value="#{accountController.currentAccount}" />
+                                    -->
                                     <h:outputLabel value="#{bundle.CreateFunction1Label_accountID}" for="accountID" />
                                     
                                     <b:selectOneMenu id="accountID" value="#{function1Controller.selected.accountID}" title="#{bundle.CreateFunction1Title_accountID}" required="true" requiredMessage="#{bundle.CreateFunction1RequiredMessage_accountID}">
                                         <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
                                     </b:selectOneMenu>
+                                    
                                     
                                     <!-- BEGINNING BOTTOM BUTTONS -->
                                     <div class="modal-footer">
@@ -138,7 +141,7 @@
                                     
                                     <h:outputLabel value="#{bundle.CreateFunction1Label_accountID}" for="accountID" />
                                     <b:selectOneMenu id="accountID" value="#{function1Controller.selected.accountID}" title="#{bundle.CreateFunction1Title_accountID}" required="true" requiredMessage="#{bundle.CreateFunction1RequiredMessage_accountID}">
-                                        <f:selectItems value="#{function1Controller.itemsAvailableSelectOne}"/>
+                                        <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
                                     </b:selectOneMenu>
                                     <!-- BEGINNING BOTTOM BUTTONS -->
                                     <div class="modal-footer">
