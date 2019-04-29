@@ -76,7 +76,7 @@ public class Function1Controller implements Serializable {
     public String prepareCreate() {
         current = new Function1();
         selectedItemIndex = -1;
-        return "Create";
+        return "List";
     }
 
     public String create() {

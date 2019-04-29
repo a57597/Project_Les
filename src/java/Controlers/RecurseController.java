@@ -83,7 +83,8 @@ public class RecurseController implements Serializable {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecurseCreated"));
-            return prepareCreate();
+            //return prepareCreate();
+            return this.prepareList();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
