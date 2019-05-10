@@ -4,7 +4,8 @@ import Classes.Phrase;
 import Controlers.util.JsfUtil;
 import Controlers.util.PaginationHelper;
 import Models.PhraseFacade;
-
+import java.util.List;
+import java.util.ArrayList;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,19 +26,61 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class PhraseController implements Serializable {
 
+    private List<Phrase> selectedList = new ArrayList<>();
     private Phrase current;
     private DataModel items = null;
     @EJB
     private Models.PhraseFacade ejbFacade;
     private PaginationHelper pagination;
-    private int selectedItemIndex;
-
-    public PhraseController() {
+    private int selectedItemIndex = -1;
+    
+    public Phrase getCurrent(){
+        return current;
     }
     
-    public Phrase select(int index){
-        return null;
+    public int selectedSize(){
+        return selectedList.size();
     }
+    
+    public boolean selectedContains(Phrase p){
+        if(selectedList.isEmpty()) return false;
+        for(Phrase phr: selectedList){
+            if(phr.equals(p)){
+                return true;
+            }
+                
+        }
+        return false;
+    }
+    
+    public void select(){
+        current = (Phrase) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selectedList.add((Phrase) getItems().getRowData());
+    }
+    
+    public void unselect(Phrase p){
+        Phrase toRemove = null;
+        for(Phrase phr: selectedList){
+            if(phr.equals(p)){
+                toRemove = phr;
+                break;
+            }
+                
+        }
+        
+        if(toRemove != null)
+            selectedList.remove(toRemove);
+        
+        if(selectedList.isEmpty())
+            current = new Phrase();
+        
+    }
+    
+    public int getIndex(){
+        return selectedItemIndex;
+    }
+
 
     public Phrase getSelected() {
         if (current == null) {
@@ -53,7 +96,8 @@ public class PhraseController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(1000) {
+            //pagination = new PaginationHelper(10) {
 
                 @Override
                 public int getItemsCount() {
@@ -83,7 +127,7 @@ public class PhraseController implements Serializable {
     public String prepareCreate() {
         current = new Phrase();
         selectedItemIndex = -1;
-        return "Create";
+        return prepareList();
     }
 
     public String create() {
@@ -93,7 +137,7 @@ public class PhraseController implements Serializable {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PhraseCreated"));
-            return prepareList();
+            return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -101,7 +145,6 @@ public class PhraseController implements Serializable {
     }
 
     public String prepareEdit() {
-        
         current = (Phrase) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
@@ -125,6 +168,29 @@ public class PhraseController implements Serializable {
         recreatePagination();
         recreateModel();
         return "List";
+    }
+    
+    public void destroyBetter(){
+        boolean suc = false;
+        for(Phrase phr: selectedList){
+            
+            try {
+                
+                getFacade().remove(phr);
+                suc = true;
+                
+            } catch (Exception e) {
+                
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                break;
+            }
+        }
+        if(suc == true)
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PhraseDeleted"));
+        
+        selectedList.clear();
+        recreatePagination();
+        recreateModel();
     }
 
     public String destroyAndView() {
