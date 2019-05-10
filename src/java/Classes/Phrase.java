@@ -173,7 +173,7 @@ public class Phrase implements Serializable {
 
     @Override
     public String toString() {
-        String result = userName + " " + actionID.getName();
+        String result = accountSubject + " " + actionID.getName();
         if(accountReceiver != null)
             result+= " " + accountReceiver;
         if(artefactID != null)
