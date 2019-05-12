@@ -22,6 +22,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ProductController implements Serializable {
 
+    
     private Product current;
     private DataModel items = null;
     @EJB
@@ -29,7 +30,21 @@ public class ProductController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    ////////////////////////////////////////////////////////////////////////////    Codigo novo
+    private Product selected;
+    
+    public void select() {
+        current = (Product) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selected = (Product) getItems().getRowData();
+    }
+    
+    public void deselect() {
+        this.selected = null;
+    }
+    ////////////////////////////////////////////////////////////////////////////
     public ProductController() {
+        this.selected = null;
     }
 
     public Product getSelected() {
