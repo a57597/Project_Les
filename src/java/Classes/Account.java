@@ -321,7 +321,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Account[ id=" + id + " ]";
+        return "id= " + id + ", username= " +userName;
     }
     
 }
