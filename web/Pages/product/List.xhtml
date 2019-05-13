@@ -88,7 +88,7 @@
                 <!-- END OF EXEMPLAR MODAL -->
                 <!-- edit button -->
                 <h:panelGroup>
-                    <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#editModal" action-listener="" rendered="#{productController.selected != null}">
+                    <b:commandButton id="editButton" type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#editModal" action-listener="">
                         <span ><b:iconAwesome value="fa-edit" /> </span>
                         <span style=" text-align:center;"><b>Edit</b></span>
                     </b:commandButton>
@@ -137,7 +137,7 @@
                           </div>
                     <!-- END OF PRODUCT EDIT -->
                     <!-- delete button -->
-                    <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#deleteModal" action-listener="#{productController.destroy}" rendered="#{productController.selected != null}">
+                    <b:commandButton id="deleteButton" type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#deleteModal" action-listener="#{productController.destroy}">
                         <span ><b:iconAwesome value="fa-trash" /> </span>
                         <span style=" text-align:center;"><b>Delete</b></span>
                     </b:commandButton>
@@ -153,8 +153,6 @@
                     <h:panelGroup rendered="#{productController.items.rowCount > 0}" >
                         <form>
                             <b:dataTable value="#{productController.items}" var="items" select="true" 
-                                         onselect="#{productController.select()}"
-                                         ondeselect="#{productController.deselect()}"
                                          >
                                 <b:dataTableColumn value="#{items.name}" label="Name"/>
                                 <b:dataTableColumn value="#{items.description}" label="Description"/>

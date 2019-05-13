@@ -37,6 +37,19 @@
                             <span ><b:iconAwesome value="fa-trash" /> </span>
                             <span style=" text-align:center;"><b>Delete</b></span>
                         </b:commandButton>
+                        
+                        <!-- 
+                            Adicionado por Martim
+                        -->
+                        <b:commandButton class="btn btn-basic" styleClass="mr4"  action="#{activityController.prepareAssociateProduct}">
+                            <span ><b:iconAwesome value="fa-plus-circle" /> </span>
+                            <span style=" text-align:center;"><b>Associate Product</b></span>
+                        </b:commandButton>
+                        
+                        <b:commandButton class="btn btn-basic" styleClass="mr4"  action="#{activityController.prepareAssociateFunction}">
+                            <span ><b:iconAwesome value="fa-plus-circle" /> </span>
+                            <span style=" text-align:center;"><b>Associate Function</b></span>
+                        </b:commandButton>
 
                     </h:panelGroup>
                     <!-- END BOTOES -->

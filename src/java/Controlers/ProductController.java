@@ -6,6 +6,8 @@ import Controlers.util.PaginationHelper;
 import Models.ProductFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -30,21 +32,25 @@ public class ProductController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    ////////////////////////////////////////////////////////////////////////////    Codigo novo
-    private Product selected;
     
-    public void select() {
+    ////////////////////////////////////////////////////////////////////////////    Codigo novo
+    
+    private boolean rowSelected = false;
+    
+    public void setRowSelected(boolean b) {
         current = (Product) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        selected = (Product) getItems().getRowData();
+        this.rowSelected = b;
+        
     }
     
-    public void deselect() {
-        this.selected = null;
+    public boolean getRowSelected() {
+        return this.rowSelected;
     }
     ////////////////////////////////////////////////////////////////////////////
+    
+    
     public ProductController() {
-        this.selected = null;
     }
 
     public Product getSelected() {
