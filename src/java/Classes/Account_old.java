@@ -6,8 +6,8 @@
 package Classes;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,14 +24,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author diogo
+ * @author kraker
  */
 @Entity
 @Table(name = "Account")
@@ -47,7 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
     , @NamedQuery(name = "Account.findByAddress", query = "SELECT a FROM Account a WHERE a.address = :address")
     , @NamedQuery(name = "Account.findBySalary", query = "SELECT a FROM Account a WHERE a.salary = :salary")})
-public class Account implements Serializable {
+public class Account_old implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,31 +54,23 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "UserName")
     private String userName;
     @Size(max = 45)
     @Column(name = "CC")
     private String cc;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
+    @Size(max = 128)
     @Column(name = "Password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "AccountName")
     private String accountName;
     @Column(name = "Birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Email")
     private String email;
     @Size(max = 256)
@@ -91,41 +82,33 @@ public class Account implements Serializable {
         @JoinColumn(name = "Account_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "Organization_ID", referencedColumnName = "ID")})
     @ManyToMany
-    private Collection<Organization> organizationCollection;
+    private List<Organization> organizationList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
-    private Collection<Pattern> patternCollection;
+    private List<Pattern> patternList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
-    private Collection<Action> actionCollection;
+    private List<Action> actionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
-    private Collection<Activity> activityCollection;
+    private List<Activity> activityList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
-    private Collection<Product> productCollection;
+    private List<Product> productList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
-    private Collection<Process> processCollection;
+    private List<Process> processList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountSubject")
-    private Collection<Phrase> phraseCollection;
+    private List<Phrase> phraseList;
     @OneToMany(mappedBy = "accountReceiver")
-    private Collection<Phrase> phraseCollection1;
+    private List<Phrase> phraseList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
-    private Collection<Function1> function1Collection;
+    private List<Function1> function1List;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
-    private Collection<Groups> groupsCollection;
+    private List<Groups> groupsList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
-    private Collection<UserType> userTypeCollection;
+    private List<UserType> userTypeList;
 
-    public Account() {
+    public Account_old() {
     }
 
-    public Account(Integer id) {
+    public Account_old(Integer id) {
         this.id = id;
-    }
-
-    public Account(Integer id, String userName, String password, String accountName, String email) {
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-        this.accountName = accountName;
-        this.email = email;
     }
 
     public Integer getId() {
@@ -201,102 +184,102 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Organization> getOrganizationCollection() {
-        return organizationCollection;
+    public List<Organization> getOrganizationList() {
+        return organizationList;
     }
 
-    public void setOrganizationCollection(Collection<Organization> organizationCollection) {
-        this.organizationCollection = organizationCollection;
-    }
-
-    @XmlTransient
-    public Collection<Pattern> getPatternCollection() {
-        return patternCollection;
-    }
-
-    public void setPatternCollection(Collection<Pattern> patternCollection) {
-        this.patternCollection = patternCollection;
+    public void setOrganizationList(List<Organization> organizationList) {
+        this.organizationList = organizationList;
     }
 
     @XmlTransient
-    public Collection<Action> getActionCollection() {
-        return actionCollection;
+    public List<Pattern> getPatternList() {
+        return patternList;
     }
 
-    public void setActionCollection(Collection<Action> actionCollection) {
-        this.actionCollection = actionCollection;
-    }
-
-    @XmlTransient
-    public Collection<Activity> getActivityCollection() {
-        return activityCollection;
-    }
-
-    public void setActivityCollection(Collection<Activity> activityCollection) {
-        this.activityCollection = activityCollection;
+    public void setPatternList(List<Pattern> patternList) {
+        this.patternList = patternList;
     }
 
     @XmlTransient
-    public Collection<Product> getProductCollection() {
-        return productCollection;
+    public List<Action> getActionList() {
+        return actionList;
     }
 
-    public void setProductCollection(Collection<Product> productCollection) {
-        this.productCollection = productCollection;
-    }
-
-    @XmlTransient
-    public Collection<Process> getProcessCollection() {
-        return processCollection;
-    }
-
-    public void setProcessCollection(Collection<Process> processCollection) {
-        this.processCollection = processCollection;
+    public void setActionList(List<Action> actionList) {
+        this.actionList = actionList;
     }
 
     @XmlTransient
-    public Collection<Phrase> getPhraseCollection() {
-        return phraseCollection;
+    public List<Activity> getActivityList() {
+        return activityList;
     }
 
-    public void setPhraseCollection(Collection<Phrase> phraseCollection) {
-        this.phraseCollection = phraseCollection;
-    }
-
-    @XmlTransient
-    public Collection<Phrase> getPhraseCollection1() {
-        return phraseCollection1;
-    }
-
-    public void setPhraseCollection1(Collection<Phrase> phraseCollection1) {
-        this.phraseCollection1 = phraseCollection1;
+    public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
     }
 
     @XmlTransient
-    public Collection<Function1> getFunction1Collection() {
-        return function1Collection;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setFunction1Collection(Collection<Function1> function1Collection) {
-        this.function1Collection = function1Collection;
-    }
-
-    @XmlTransient
-    public Collection<Groups> getGroupsCollection() {
-        return groupsCollection;
-    }
-
-    public void setGroupsCollection(Collection<Groups> groupsCollection) {
-        this.groupsCollection = groupsCollection;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     @XmlTransient
-    public Collection<UserType> getUserTypeCollection() {
-        return userTypeCollection;
+    public List<Process> getProcessList() {
+        return processList;
     }
 
-    public void setUserTypeCollection(Collection<UserType> userTypeCollection) {
-        this.userTypeCollection = userTypeCollection;
+    public void setProcessList(List<Process> processList) {
+        this.processList = processList;
+    }
+
+    @XmlTransient
+    public List<Phrase> getPhraseList() {
+        return phraseList;
+    }
+
+    public void setPhraseList(List<Phrase> phraseList) {
+        this.phraseList = phraseList;
+    }
+
+    @XmlTransient
+    public List<Phrase> getPhraseList1() {
+        return phraseList1;
+    }
+
+    public void setPhraseList1(List<Phrase> phraseList1) {
+        this.phraseList1 = phraseList1;
+    }
+
+    @XmlTransient
+    public List<Function1> getFunction1List() {
+        return function1List;
+    }
+
+    public void setFunction1List(List<Function1> function1List) {
+        this.function1List = function1List;
+    }
+
+    @XmlTransient
+    public List<Groups> getGroupsList() {
+        return groupsList;
+    }
+
+    public void setGroupsList(List<Groups> groupsList) {
+        this.groupsList = groupsList;
+    }
+
+    @XmlTransient
+    public List<UserType> getUserTypeList() {
+        return userTypeList;
+    }
+
+    public void setUserTypeList(List<UserType> userTypeList) {
+        this.userTypeList = userTypeList;
     }
 
     @Override
@@ -309,10 +292,10 @@ public class Account implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Account)) {
+        if (!(object instanceof Account_old)) {
             return false;
         }
-        Account other = (Account) object;
+        Account_old other = (Account_old) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -321,7 +304,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Account[ id=" + id + " ]";
+        return userName + "";
     }
     
 }
