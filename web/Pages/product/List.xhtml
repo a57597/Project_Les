@@ -117,8 +117,8 @@
                                         <h:outputLabel value="#{bundle.CreateProductLabel_type}" for="type" />
                                         <b:inputText id="type" value="#{productController.selected.type}" title="#{bundle.CreateProductTitle_type}" />
 
-                                        <h:outputLabel value="#{bundle.CreateProductLabel_accountID}" for="accountID" />
-                                        <b:selectOneMenu id="accountID" value="#{productController.selected.accountID}" title="#{bundle.CreateProductTitle_accountID}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_accountID}">
+                                        <h:outputLabel value="#{bundle.CreateProductLabel_name}" for="activityID" />
+                                        <b:selectOneMenu id="accountID" value="#{activityController.selected.name}" title="#{bundle.CreateProductTitle_accountID}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_accountID}">
                                             <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
                                         </b:selectOneMenu>
                                         <!-- BEGINNING BOTTOM BUTTONS -->
@@ -151,7 +151,7 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListProductEmpty}" rendered="#{productController.items.rowCount == 0}"/>
                     <h:panelGroup rendered="#{productController.items.rowCount > 0}" >
-                        <form>
+                        <h:form>
                             <b:dataTable value="#{productController.items}" var="items" select="true" 
                                          >
                                 <b:dataTableColumn value="#{items.name}" label="Name"/>
@@ -159,7 +159,7 @@
                                 <b:dataTableColumn value="#{items.creationDate}" label="Creation Date"/>
                                 <b:dataTableColumn value="#{items.type}" label="Type"/>
                             </b:dataTable>
-                        </form>
+                        </h:form>
                     </h:panelGroup>
                 <!-- END OF PRODUCT TABLE -->
                 <!-- BEGGINING OF BOTTOM BUTTONS -->

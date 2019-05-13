@@ -1,11 +1,13 @@
 package Controlers;
 
 import Classes.Activity;
+import Classes.Function1;
 import Controlers.util.JsfUtil;
 import Controlers.util.PaginationHelper;
 import Models.ActivityFacade;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -32,6 +34,17 @@ public class ActivityController implements Serializable {
     public ActivityController() {
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    //                          CÓDIGO NOVO
+    ////////////////////////////////////////////////////////////////////////////
+    public String associateFunctionToActivity(Activity account, Function1 function) {
+        
+        return "List";
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////
+    //                          FIM DO CÓDIGO NOVO
+    ////////////////////////////////////////////////////////////////////////////
     public Activity getSelected() {
         if (current == null) {
             current = new Activity();

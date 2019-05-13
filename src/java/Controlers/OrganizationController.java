@@ -1,11 +1,15 @@
 package Controlers;
 
+import Classes.Account;
 import Classes.Organization;
 import Controlers.util.JsfUtil;
 import Controlers.util.PaginationHelper;
 import Models.OrganizationFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -32,6 +36,28 @@ public class OrganizationController implements Serializable {
     public OrganizationController() {
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    //                              Codigo novo
+    ////////////////////////////////////////////////////////////////////////////
+    
+    public void setCurrent(Organization current) {
+        this.current = current;
+    }
+    
+    public Organization getCurrent() {
+        return current;
+    }
+    
+    public List<Account> accountsSameOrganization() {
+        List<Account> result = current.getAccountList();
+        if(result == null) return new ArrayList<Account>();
+        return result;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////
+    //                          Fim do codigo novo
+    ////////////////////////////////////////////////////////////////////////////
+    
     public Organization getSelected() {
         if (current == null) {
             current = new Organization();
