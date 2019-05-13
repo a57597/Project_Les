@@ -5,12 +5,16 @@ import Controlers.util.JsfUtil;
 import Controlers.util.PaginationHelper;
 import Models.AccountFacade;
 
+import java.util.*;
+
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -29,15 +33,10 @@ public class AccountController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    // CODIGO ADICIONADO
-    private Account currentAccount;     // Conta que associas assim que fazer login
-    public void setCurrentAccount(Account currentAccount) {this.currentAccount = currentAccount;}
-    public Account getCurrentAccount() {return this.currentAccount;}
-    // FIM DO CODIGO ADICIONADO
-    
     public AccountController() {
     }
 
+    
     public Account getSelected() {
         if (current == null) {
             current = new Account();
@@ -52,7 +51,7 @@ public class AccountController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(100000) {
 
                 @Override
                 public int getItemsCount() {
@@ -84,17 +83,31 @@ public class AccountController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
-
+    
     public String create() {
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccountCreated"));
-            return prepareCreate();
+                getFacade().create(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccountCreated"));
+                prepareCreate();
+                return prepareList();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
+    
+    public void validateByEmail(FacesContext context,
+                                UIComponent toValidate, 
+                                Object value) {
+
+    String email = (String) value;
+    if (!getFacade().findByEmail(email).isEmpty()) {
+        ((UIInput) toValidate).setValid(false);
+        FacesMessage message = new FacesMessage(ResourceBundle.getBundle("/Bundle").getString("CreateAccountAlreadyExistEmail"));
+        context.addMessage(toValidate.getClientId(context), message);
+    } else
+        ((UIInput) toValidate).setValid(true);
+}
 
     public String prepareEdit() {
         current = (Account) getItems().getRowData();
@@ -237,7 +250,5 @@ public class AccountController implements Serializable {
         }
 
     }
-    
-    
 
 }
