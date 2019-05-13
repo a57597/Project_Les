@@ -125,7 +125,7 @@
             
             <b:row>
                 <b:column medium-screen="7">
-                    <b:datepicker label="#{bundle.CreateAccountLabel_birthday}" labelStyle="text-align:left;" colMd="8" labelColMd="4" id="birthday"  mode="popup-icon" value="#{accountController.selected.birthday}"/>
+                    <b:datepicker changeMonth="true" changeYear="true" showButtonPanel="true" label="#{bundle.CreateAccountLabel_birthday}" labelStyle="text-align:left;" colMd="8" labelColMd="4" id="birthday"  mode="popup-icon" value="#{accountController.selected.birthday}"/>
                 </b:column>
                 <b:column medium-screen="5">
                     <b:message for="@previous" auto-update="true" />
@@ -143,7 +143,7 @@
             
             <b:row>
                 <b:column medium-screen="7">
-                    <b:inputText label="#{bundle.CreateAccountLabel_salary}" mask="numeric" id="salary" labelStyle="text-align:left;" colMd="8" labelColMd="4" value="#{accountController.selected.salary}" title="#{bundle.CreateAccountTitle_salary}" />
+                    <b:inputText label="#{bundle.CreateAccountLabel_salary} (€)" mask="numeric" id="salary" labelStyle="text-align:left;" colMd="8" labelColMd="4" value="#{accountController.selected.salary}" title="#{bundle.CreateAccountTitle_salary}" />
                 </b:column>
                 <b:column medium-screen="5">
                     <b:message for="@previous" auto-update="true" />
