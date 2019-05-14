@@ -6,6 +6,7 @@ import Controlers.util.PaginationHelper;
 import Models.PatternFacade;
 
 import java.io.Serializable;
+import java.util.*;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -28,8 +29,27 @@ public class PatternController implements Serializable {
     private Models.PatternFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private ArrayList<Pattern> selectedPatterns = new ArrayList<Pattern>();
 
     public PatternController() {
+    }
+    
+    public void selectPattern(){
+        current = (Pattern) getItems().getRowData();
+        System.out.println("Select " + current.getId());
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selectedPatterns.add(current);
+    }
+    
+    public void unselectPattern(){
+        Pattern tmp = (Pattern) getItems().getRowData();
+        System.out.println("Unselect " + tmp.getId());
+        for(Pattern pt: selectedPatterns){
+            if(pt.equals(tmp)){
+                selectedPatterns.remove(pt);
+                return;
+            }
+        }
     }
 
     public Pattern getSelected() {
@@ -46,7 +66,7 @@ public class PatternController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(1000) {
 
                 @Override
                 public int getItemsCount() {
@@ -76,10 +96,12 @@ public class PatternController implements Serializable {
     public String prepareCreate() {
         current = new Pattern();
         selectedItemIndex = -1;
-        return "Create";
+        return prepareList();
     }
 
     public String create() {
+        Date date = new Date();
+        current.setCreationDate(date);
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PatternCreated"));
@@ -113,6 +135,28 @@ public class PatternController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
+        return "List";
+    }
+    
+    public String destroyAll(){
+        int allSelectedPatterns = selectedPatterns.size();
+        int increment = 0;
+        for(Pattern pat: selectedPatterns){
+            try {
+                getFacade().remove(pat);
+                increment++;
+            } catch (Exception e) {
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured! The pattern with id " + pat.getId() + " could not be deleted!"));
+            }
+        }
+        
+        if(increment == allSelectedPatterns){
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PatternDeleted"));
+        }
+        selectedPatterns.clear();
+        recreatePagination();
+        recreateModel();
+        current= null;
         return "List";
     }
 
@@ -181,6 +225,7 @@ public class PatternController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
+        System.out.print("Hey");
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
