@@ -11,13 +11,15 @@
         <ui:define name="title">GPD</ui:define>
         
         <ui:define name="body">
-            <b:form styleClass="jsfcrud_list_form">
+            <b:form styleClass="">
                 
                 <b:column span="1"/>
                 <b:column span="7">
-                
+
                 <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    <b:row>
+                        <b:messages only-most-severe="true" large-screen="full-width" errorStyle="color: red" infoStyle="color: green"/>
+                    </b:row>
                 </h:panelGroup>
                 
                     <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#createModal" action-listener="#{phraseController.prepareCreate}">
@@ -55,7 +57,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <b:button value="Cancel" dismiss="modal" />
-                                    <b:commandButton class="btn btn-basic" style="margin-right: 4px;" action="#{patternController.destroyAll}">
+                                    <b:commandButton class="btn btn-basic" style="margin-right: 4px;" look="success" action="#{patternController.destroyAll}">
                                         <span ><b:iconAwesome value="fas fa-edit"/> </span>
                                         <span style="text-align:center;"><b>Confirm</b></span>
                                     </b:commandButton>
@@ -91,7 +93,7 @@
                       </b:dataTable>
                 </h:panelGroup>
                 
-               
+                <br/>
                 <b:button class="btn btn-basic" outcome="/index" value="Main Menu" iconAwesome="home"/>
                 <br/>
                 
