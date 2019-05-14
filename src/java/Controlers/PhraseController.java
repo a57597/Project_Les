@@ -28,11 +28,29 @@ public class PhraseController implements Serializable {
 
     private List<Phrase> selectedList = new ArrayList<>();
     private Phrase current;
+    private Phrase toCreate;
     private DataModel items = null;
     @EJB
     private Models.PhraseFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex = -1;
+    
+    public PhraseController(){
+    }
+    
+    public String editDisable(){
+        if(selectedList.size()==1)
+            return "false";
+        else
+            return "true";
+    }
+    
+    public String deleteDisable(){
+        if(selectedList.size()>=1)
+            return "false";
+        else
+            return "true";
+    }
     
     public Phrase getCurrent(){
         return current;
@@ -54,19 +72,56 @@ public class PhraseController implements Serializable {
     }
     
     public void select(){
-        current = (Phrase) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        selectedList.add((Phrase) getItems().getRowData());
+        try{
+            current = (Phrase) getItems().getRowData();
+            System.out.println(current);
+            selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+            selectedList.add(current);
+        }
+        catch(Exception e){
+            return;
+        }
+        //return "nextpage?faces-redirect=true";
+    }
+    
+    public void desselect(){
+        try {
+            Phrase toRemove = null;
+
+            System.out.println("unselect");
+            Phrase value = (Phrase) getItems().getRowData();
+
+            for(Phrase phr: selectedList){
+                if(phr.equals(value)){
+                    toRemove = phr;
+                    break;
+                }
+            }
+
+            if(toRemove != null)
+                selectedList.remove(toRemove);
+
+            if(selectedList.isEmpty())
+                current = new Phrase();
+            else if(current == toRemove)
+                current = selectedList.get(0);
+        }
+        catch(Exception e){
+            return;
+        }
+        ///return "nextpage?faces-redirect=true";
     }
     
     public void unselect(Phrase p){
         Phrase toRemove = null;
+        
+        //Phrase value = (Phrase) getItems().getRowData();
+         
         for(Phrase phr: selectedList){
             if(phr.equals(p)){
                 toRemove = phr;
                 break;
             }
-                
         }
         
         if(toRemove != null)
@@ -74,7 +129,13 @@ public class PhraseController implements Serializable {
         
         if(selectedList.isEmpty())
             current = new Phrase();
-        
+        else if(current == toRemove)
+            current = selectedList.get(0);
+    }
+    
+    public void unselectAll(){
+        current = new Phrase();
+        selectedList.clear();
     }
     
     public int getIndex(){
@@ -88,6 +149,13 @@ public class PhraseController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public Phrase getToCreate(){
+        if (toCreate == null) {
+            toCreate = new Phrase();
+        }
+        return toCreate;
     }
 
     private PhraseFacade getFacade() {
@@ -125,7 +193,7 @@ public class PhraseController implements Serializable {
     }
 
     public String prepareCreate() {
-        current = new Phrase();
+        toCreate = new Phrase();
         selectedItemIndex = -1;
         return prepareList();
     }
@@ -133,9 +201,9 @@ public class PhraseController implements Serializable {
     public String create() {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date date = new Date();
-        current.setCreationDate(dateFormat.format(date));
+        toCreate.setCreationDate(dateFormat.format(date));
         try {
-            getFacade().create(current);
+            getFacade().create(toCreate);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PhraseCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -191,6 +259,7 @@ public class PhraseController implements Serializable {
         selectedList.clear();
         recreatePagination();
         recreateModel();
+        prepareList();
     }
 
     public String destroyAndView() {
