@@ -11,13 +11,15 @@
         <ui:define name="title">GPD</ui:define>
         
         <ui:define name="body">
-            <b:form styleClass="jsfcrud_list_form">
+            <b:form styleClass="">
                 
                 <b:column span="1"/>
                 <b:column span="7">
-                
+
                 <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    <b:row>
+                        <b:messages only-most-severe="true" large-screen="full-width" errorStyle="color: red" infoStyle="color: green"/>
+                    </b:row>
                 </h:panelGroup>
                 
                     <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#createModal" action-listener="#{phraseController.prepareCreate}">
@@ -25,15 +27,45 @@
                         <b>Create</b>
                     </b:commandButton>
                     
-                    <b:commandButton type="button" class="btn btn-basic" p:data-toggle="modal" p:data-target="#editModal" action-listener="#{phraseController.prepareEdit}">
+                    <b:commandButton type="button" class="btn btn-basic" style="margin-left: 4px;" p:data-toggle="modal" p:data-target="#editModal" action-listener="#{phraseController.prepareEdit}">
                         <span ><b:iconAwesome value="fas fa-edit"/> </span>
                         <span style="text-align:center;"><b>Edit</b></span>
                     </b:commandButton>
                     
-                    <b:commandButton class="btn btn-basic" style="margin-right: 4px;" action="#{patternController.destroyAll}">
+                    <b:commandButton type = "button" class="btn btn-basic" style="margin-left: 4px;" p:data-toggle="modal" p:data-target="#deleteConfirmation" action-listener="#{patternController.destroyAll}">
                         <span ><b:iconAwesome value="fas fa-trash"/> </span>
                         <span style="text-align:center;"><b>Delete</b></span>
                     </b:commandButton>
+                    
+                    <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"> Confirm Delete
+                                    <span>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">
+                                                <!--&times;-->
+                                            </span>
+                                        </button>
+                                    </span>
+                                </h5>
+                            </div>
+                            <h:form>
+                                <div class="modal-body" style="margin-left: 35%;">
+                                    <h4>Confirm delete?</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <b:button value="Cancel" dismiss="modal" />
+                                    <b:commandButton class="btn btn-basic" style="margin-right: 4px;" look="success" action="#{patternController.destroyAll}">
+                                        <span ><b:iconAwesome value="fas fa-edit"/> </span>
+                                        <span style="text-align:center;"><b>Confirm</b></span>
+                                    </b:commandButton>
+                                </div>
+                            </h:form> 
+                          </div>
+                        </div>
+                      </div>
                 
                 <br />
                 
@@ -49,7 +81,6 @@
                         var="item"  
                         select="true" 
                         scroll-x="false"
-                        responsive="true"
                         ajax="true"
                         onselect="ajax:patternController.selectPattern();"
                         ondeselect="ajax:patternController.unselectPattern();">
@@ -62,7 +93,7 @@
                       </b:dataTable>
                 </h:panelGroup>
                 
-               
+                <br/>
                 <b:button class="btn btn-basic" outcome="/index" value="Main Menu" iconAwesome="home"/>
                 <br/>
                 
